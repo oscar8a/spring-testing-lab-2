@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ApplicationController {
+    private CryptoService cpService;
+
+    public ApplicationController(CryptoService cryptoService){
+        this.cpService = cryptoService;
+    }
 
     @GetMapping("/hello")
     public String shouldGreetDefault(@RequestParam(
@@ -14,8 +19,8 @@ public class ApplicationController {
         return String.format("Hello %s", name);
     }
 
-//    @GetMapping("/getBitcoinPrice")
-//    public String getPriceOfBitcoin() {
-//        return "The Price of Bitcoin is: " + cryptoPricingService.getBitcoinData();
-//    }
+    @GetMapping("/getBitcoinPrice")
+    public String getPriceOfBitcoin() {
+        return "The Price of Bitcoin is: " + cpService.getCoinPrice();
+    }
 }
